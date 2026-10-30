@@ -24,3 +24,9 @@ postgres_data/
 
 # Test coverage
 coverage/
+
+# Docker
+*.pid
+
+# TypeScript
+*.tsbuildinfo
