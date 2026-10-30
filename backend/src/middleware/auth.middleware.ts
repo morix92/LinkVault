@@ -1,22 +1,24 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
+import pool from "../database/database";
+
 export interface AuthRequest extends Request {
     user?: {
         userId: number;
-        username: string;
     };
 }
 
-export function authenticateToken(
+export async function authenticateToken(
     req: AuthRequest,
     res: Response,
     next: NextFunction
-): void {
+): Promise<void> {
 
     const authHeader = req.headers.authorization;
 
     if (!authHeader?.startsWith("Bearer ")) {
+
         res.status(401).json({
             message: "Token mancante"
         });
@@ -33,10 +35,25 @@ export function authenticateToken(
             process.env.JWT_SECRET as string
         ) as {
             userId: number;
-            username: string;
         };
 
-        req.user = payload;
+        const result = await pool.query(
+            "SELECT id FROM users WHERE id = $1",
+            [payload.userId]
+        );
+
+        if (result.rows.length === 0) {
+
+            res.status(401).json({
+                message: "Utente non valido"
+            });
+
+            return;
+        }
+
+        req.user = {
+            userId: payload.userId
+        };
 
         next();
 

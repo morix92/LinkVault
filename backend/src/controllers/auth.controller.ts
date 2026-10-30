@@ -79,17 +79,3 @@ export async function login(
 
     }
 }
-
-// =====================
-// ME
-// =====================
-
-export async function me(
-    req: AuthRequest,
-    res: Response
-): Promise<void> {
-
-    res.status(200).json({
-        user: req.user
-    });
-}
