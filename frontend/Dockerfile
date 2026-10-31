@@ -1,4 +1,8 @@
-FROM node:24-alpine
+# =========================
+# BUILD STAGE
+# =========================
+
+FROM node:24-alpine AS build
 
 WORKDIR /app
 
@@ -8,6 +12,16 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4200
+RUN npm run build
 
-CMD ["npm", "start"]
+# =========================
+# RUNTIME STAGE
+# =========================
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /app/dist/linkvault-frontend/browser /usr/share/nginx/html
+
+EXPOSE 80

@@ -21,6 +21,117 @@ Il progetto nasce con finalità formative e di portfolio e pone particolare atte
 
 ---
 
+# Quick Start
+
+## Prerequisiti
+
+Assicurarsi di avere installato:
+
+- Docker Desktop
+
+Verifica installazione:
+
+```bash
+docker --version
+docker compose version
+```
+
+---
+
+## Avvio dell'applicazione
+
+Dalla root del progetto eseguire:
+
+```bash
+docker compose up --build -d
+```
+
+Il comando:
+
+- crea le immagini Docker necessarie;
+- avvia i container;
+- inizializza il database PostgreSQL;
+- avvia il backend Express;
+- genera una build di produzione del frontend Angular;
+- distribuisce gli artefatti compilati tramite Nginx.
+
+---
+
+## Verifica stato dei servizi
+
+```bash
+docker ps
+```
+
+Output atteso:
+
+```text
+linkvault-postgres   healthy
+linkvault-backend    healthy
+linkvault-frontend   healthy
+```
+
+---
+
+## Accesso all'applicazione
+
+Frontend:
+
+```text
+http://localhost:4200
+```
+
+Backend Health Check:
+
+```text
+http://localhost:3000/health
+```
+
+---
+
+## Credenziali Demo
+
+Username:
+demo
+
+Password:
+demo12345
+
+Le credenziali demo vengono caricate automaticamente durante la prima inizializzazione del database PostgreSQL.
+---
+
+## Arresto dell'applicazione
+
+```bash
+docker compose down
+```
+
+---
+
+## Rimozione completa dell'ambiente
+
+```bash
+docker compose down -v
+```
+
+⚠️ Attenzione: il comando elimina anche il volume PostgreSQL e tutti i dati memorizzati nel database.
+
+---
+
+## Struttura dei servizi
+
+```text
+Frontend (Angular)
+    ↓
+Backend (Node.js / Express)
+    ↓
+Database (PostgreSQL)
+```
+
+Tutti i componenti vengono eseguiti come servizi distinti e comunicano attraverso la rete interna creata automaticamente da Docker Compose.
+
+---
+
 # Architettura
 
 ```text
@@ -75,6 +186,16 @@ I componenti applicativi vengono eseguiti come servizi distinti e orchestrati tr
 ---
 
 # Scelte progettuali
+
+## Configurazione sviluppo e distribuzione
+
+Durante lo sviluppo il frontend può essere eseguito tramite Angular Dev Server (`ng serve`) per favorire un ciclo di sviluppo rapido.
+
+La configurazione containerizzata destinata alla distribuzione utilizza invece una build ottimizzata dell'applicazione Angular che viene servita tramite Nginx.
+
+Questa separazione consente di distinguere chiaramente l'ambiente di sviluppo da quello di esecuzione finale, riducendo le dipendenze runtime ed avvicinando l'applicazione ad uno scenario reale di deploy.
+
+---
 
 ## Perché Docker Compose
 
@@ -288,13 +409,12 @@ contenente:
 - [x] Gestione categorie
 - [x] Gestione link
 - [x] Test automatici di integrazione backend
+- [x] Frontend Angular containerizzato
+- [x] Build frontend tramite Nginx
 
 ## In sviluppo
 
-- [ ] Frontend Angular
-- [ ] Personalizzazione immagini dei link
-- [ ] Build frontend tramite Nginx
-- [ ] Deployment completo dell'applicazione
+- [ ] Sviluppo dettagliato interfaccia utente
 
 ---
 
