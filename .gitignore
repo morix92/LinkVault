@@ -30,3 +30,6 @@ coverage/
 
 # TypeScript
 *.tsbuildinfo
+
+# Esito Script di Test 
+reports/
