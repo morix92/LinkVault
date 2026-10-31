@@ -25,9 +25,16 @@ export async function registerUser(
         10
     );
 
+    const result = await pool.query(
+        "INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id",
+        [username, passwordHash]
+    );
+
+    const userId = result.rows[0].id;
+
     await pool.query(
-        `INSERT INTO users ( username, password_hash ) VALUES ( $1, $2 )`,
-        [ username, passwordHash ]
+        "INSERT INTO categories (user_id, name) VALUES ($1, $2)",
+        [userId, "Default"]
     );
 }
 
