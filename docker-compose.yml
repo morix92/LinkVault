@@ -45,5 +45,24 @@ services:
       timeout: 5s
       retries: 5
 
+  frontend:
+
+    build:
+      context: ./frontend
+
+    container_name: linkvault-frontend
+
+    restart: unless-stopped
+
+    ports:
+      - "4200:4200"
+      
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:4200 > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+      
 volumes:
   postgres_data:
