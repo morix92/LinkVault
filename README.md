@@ -353,10 +353,13 @@ bcrypt
 L'autenticazione utilizza JSON Web Token.
 
 Il backend verifica:
-
 - validità della firma;
 - scadenza del token;
 - esistenza dell'utente associato.
+
+Non sono previsti meccanismi di revoca dei token JWT, che restano validi fino alla scadenza configurata. 
+In un contesto produttivo si potrebbe introdurre una strategia basata su refresh token o tracciamento della data di modifica della password.
+Sul frontend, per semplicità, il JWT viene memorizzato nel localStorage, ma in un contesto produttivo sarebbe preferibile utilizzare cookie HttpOnly.
 
 ---
 
