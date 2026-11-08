@@ -1,0 +1,24 @@
+
+<a routerLink="/vault" class="back-link" aria-label="Torna alla vault">
+    <img src="leftArrow.png" alt="" class="arrow">
+</a>
+
+<section class="faq-section">
+
+    <h2>Domande Frequenti</h2>
+
+    <div *ngFor="let faq of allFaqs(); let i = index" class="faq-item" [class.active]="activeIndex === i">
+
+        <button type="button" class="faq-question" (click)="toggleFaq(i)" [attr.aria-expanded]="activeIndex === i" [attr.aria-controls]="'faq-answer-' + i">
+            <span>{{ faq.question }}</span>
+        </button>
+
+        <div class="faq-answer" [id]="'faq-answer-' + i" [attr.aria-hidden]="activeIndex !== i">
+            <div class="faq-answer-inner">
+                <p>{{ faq.answer }}</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>

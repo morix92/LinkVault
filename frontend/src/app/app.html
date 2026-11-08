@@ -1,3 +1,25 @@
-<h1>LinkVault</h1>
 
-<p>Frontend online.</p>
+<div class="app-container">
+
+  <app-navbar></app-navbar>
+
+  <!-- Verifica healhcheck backend -->
+  @if (!backendAvailable()) {
+    <div class="backend-banner" [class.offline]="!backendAvailable()">
+      <span>Attenzione: Il Backend potrebbe non essere ancora partito: aggiornare la pagina tra qualche secondo oppure verificare su Docker</span>
+    </div>
+  }
+  
+  <div *ngIf="alert() as a" class="top-alert" [ngClass]="a.classAlert">
+    <strong>{{ a.message }}</strong>
+  </div>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-footer></app-footer>
+
+
+</div>
+

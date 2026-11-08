@@ -1,0 +1,18 @@
+[
+   {
+      "question":"Quali dati servono per salvare un link?",
+      "answer":"Per salvare un link su LinkVault è sufficiente inserire un Titolo e l'URL che si intende salvare, mentre categoria e descrizione sono campi opzionali; l'immagine, invece, viene cercata automaticamente dal sistema, tramite l'URL."
+   },
+   {
+      "question":"Posso personalizzare l'immagine?",
+      "answer":"Cliccando sulla matita per modificare \"il link\" salvato è possibile aggiungere l'URL della favicon che si intende mostrare; ovviamente si consiglia prima di verificare la raggiungibilità sul browser."
+   },
+   {
+      "question":"A cosa servono le categorie?",
+      "answer":"Le categorie servono ad ottimizzare la gestione e la visualizzazione dei link salvati; quando la categoria non viene specificata, viene assegnata il valore \"default\"."
+   },
+   {
+      "question":"Quante categorie posso creare?",
+      "answer":"Non esiste un limite definito; è possibile creare tutte le categorie che si ritengono necessarie."
+   }
+]

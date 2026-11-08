@@ -414,10 +414,8 @@ contenente:
 - [x] Test automatici di integrazione backend
 - [x] Frontend Angular containerizzato
 - [x] Build frontend tramite Nginx
+- [x] Sviluppo dettagliato interfaccia utente
 
-## In sviluppo
-
-- [ ] Sviluppo dettagliato interfaccia utente
 
 ---
 
@@ -425,6 +423,3 @@ contenente:
 
 🚧 Work in progress
 
-Attualmente il backend e il database sono completati e testati.
-
-Lo sviluppo proseguirà con la realizzazione del frontend Angular e con l'integrazione completa dell'interfaccia utente.

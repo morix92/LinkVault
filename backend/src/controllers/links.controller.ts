@@ -28,7 +28,8 @@ export async function create(
             req.body.title,
             req.body.url,
             req.body.categoryId,
-            req.body.description
+            req.body.description,
+            req.body.imageUrl
         );
 
         res.status(201).json({
@@ -93,7 +94,8 @@ export async function update(
             req.body.title,
             req.body.url,
             req.body.categoryId,
-            req.body.description
+            req.body.description,
+            req.body.imageUrl
         );
 
         res.status(200).json({

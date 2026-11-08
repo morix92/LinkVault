@@ -3,9 +3,11 @@ import authRoutes from "./routes/auth.routes";
 import usersRoutes from "./routes/users.routes";
 import categoriesRoutes from "./routes/categories.routes";
 import linksRoutes from "./routes/links.routes";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors({origin: "http://localhost:4200"}));
 app.use(express.json());
 
 app.get("/health", (_req, res) => {

@@ -42,7 +42,8 @@ export async function createLink(
     title: string,
     url: string,
     categoryId?: number,
-    description?: string
+    description?: string,
+    imageUrl?: string
 ): Promise<void> {
 
     let targetCategoryId = categoryId;
@@ -62,14 +63,14 @@ export async function createLink(
         throw new Error("Categoria non trovata");
     }
 
-    const faviconUrl = buildFaviconUrl(url);
+    const finalImageUrl = imageUrl?.trim() ? imageUrl : buildFaviconUrl(url);
 
     await pool.query(
         `INSERT INTO links
         (user_id, category_id, title, description, url, image_url)
         VALUES
         ($1, $2, $3, $4, $5, $6)`,
-        [ userId, targetCategoryId, title, description ?? null, url, faviconUrl ]
+        [ userId, targetCategoryId, title, description ?? null, url, finalImageUrl ]
     );
 }
 
@@ -117,7 +118,8 @@ export async function updateLink(
     title: string,
     url: string,
     categoryId?: number,
-    description?: string
+    description?: string,
+    imageUrl?: string
 ): Promise<void> {
 
     const existingLink = await pool.query(
@@ -144,14 +146,14 @@ export async function updateLink(
         throw new Error("Categoria non trovata");
     }
 
-    const faviconUrl = buildFaviconUrl(url);
+    const finalImageUrl = imageUrl?.trim() ? imageUrl : buildFaviconUrl(url);
 
     await pool.query(
         `UPDATE links
          SET title = $1, description = $2, url = $3, image_url = $4, category_id = $5
          WHERE id = $6
          AND user_id = $7`,
-        [ title, description ?? null, url, faviconUrl, targetCategoryId, linkId, userId ]
+        [ title, description ?? null, url, finalImageUrl, targetCategoryId, linkId, userId ]
     );
 }
 

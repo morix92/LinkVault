@@ -1,0 +1,124 @@
+
+<div class="categories-section">
+
+  <div class="categories-header">
+    <span class="section-label">Categorie</span>
+  </div>
+
+  <div class="categories-content">
+    <div class="categories-bar">
+      @for (category of displayedCategories(); track category.id) {
+        <button class="chip" [class.selected]="categoryService.selectedCategoryId() === category.id" (click)="selectCategory(category.id)">{{ category.name }}</button>
+      }
+    </div>
+
+    <div class="category-actions">
+      <button class="add-category-btn" (click)="categoryTouched.set(false); showCreateModal.set(true)">+ Nuova categoria</button>
+      
+      @if (canEditSelectedCategory()) {
+
+        <div class="other-actions">
+          <button class="category-action-btn" (click)="openEditModal()" title="Modifica categoria"><img src="edit.png" alt="Modifica" class="icon-btn"></button>
+          <button class="category-action-btn delete-btn" (click)="showDeleteModal.set(true)" title="Elimina categoria"><img src="delete.png" alt="Elimina" class="icon-btn"></button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<hr class="separator">
+
+
+@if (showCreateModal()) {
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <span>📁</span>
+        </div>
+
+        <div class="modal-heading">
+          <h3>Nuova Categoria</h3>
+          <p>Crea una nuova categoria per organizzare i tuoi link</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nome categoria<span class="required-field" [class.visible]="categoryTouched() && !newCategoryName().trim()">* Campo Obbligatorio</span></label>
+          <input #categoryInput type="text" [value]="newCategoryName()" placeholder="Es. Lavoro, Studio, Svago..." (focus)="categoryTouched.set(true)" (input)="newCategoryName.set(categoryInput.value)">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" type="button" (click)="showCreateModal.set(false); categoryTouched.set(false); newCategoryName.set('')">Annulla</button>
+        <button class="btn-save" type="button" [disabled]="!newCategoryName().trim()" (click)="createCategory()">Salva categoria</button>
+      </div>
+    </div>
+  </div>
+
+}
+
+
+@if (showEditModal()) {
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <span>✏️</span>
+        </div>
+
+        <div class="modal-heading">
+          <h3>Modifica Categoria</h3>
+          <p>Modifica il nome della categoria selezionata</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nome categoria<span class="required-field" [class.visible]="editCategoryTouched() && !editCategoryName().trim()">* Campo Obbligatorio</span></label>
+          <input #editCategoryInput type="text" [value]="editCategoryName()" placeholder="Nome categoria" (focus)="editCategoryTouched.set(true)" (input)="editCategoryName.set(editCategoryInput.value)">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" type="button" (click)="showEditModal.set(false); editCategoryTouched.set(false)">Annulla</button>
+        <button class="btn-save" type="button" [disabled]="!editCategoryName().trim()" (click)="updateCategory()">Salva modifiche
+        </button>
+      </div>
+    </div>
+  </div>
+
+}
+
+
+@if (showDeleteModal()) {
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <span>🗑️</span>
+        </div>
+
+        <div class="modal-heading">
+          <h3>Elimina Categoria {{selectedCategory()?.name}} </h3>
+          <p>Conferma l'eliminazione della categoria selezionata</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <p>Attenzione: Operazione irreversibile</p>
+        <p>I link associati a questa categoria verranno spostati nella categoria "Default".</p>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" type="button" (click)="showDeleteModal.set(false)">Annulla</button>
+        <button class="btn-save" type="button" (click)="deleteCategory()">Conferma</button>
+      </div>
+    </div>
+  </div>
+
+}

@@ -1,0 +1,10 @@
+<div class="auth-card">
+
+  <h2>Accedi</h2>
+
+  <input type="text" placeholder="Username" [ngModel]="username()" (ngModelChange)="username.set($event)">
+  <input type="password" placeholder="Password" [ngModel]="password()" (ngModelChange)="password.set($event)">
+
+  <button type="button" (click)="login()">Accedi</button>
+
+</div>

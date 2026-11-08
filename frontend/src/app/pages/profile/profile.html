@@ -1,0 +1,84 @@
+
+<a routerLink="/vault" class="back-link" aria-label="Torna alla vault">
+    <img src="leftArrow.png" alt="" class="arrow">
+</a>
+
+<div class="profile-container">
+  <div class="profile-card">
+    <h2>Profilo</h2>
+
+    @if (!editMode()) {
+
+      <div class="info-row">
+        <span class="label">Username</span>
+        <span class="value">{{ username() }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Password</span>
+        <span class="value">********</span>
+      </div>
+
+      <hr>
+
+      <div class="profile-actions">
+        <button class="actions-btn" (click)="enableEdit()">Modifica Profilo</button>
+        <button class="actions-btn" (click)="showDeleteModal.set(true)">Elimina Profilo</button>
+      </div>
+
+    } @else {
+
+      <div class="field">
+        <label>Username</label>
+        <input #usernameInput [value]="username()" (input)="username.set(usernameInput.value)">
+      </div>
+
+      <div class="field">
+        <label>Nuova Password</label>
+        <input type="password" #passwordInput (input)="password.set(passwordInput.value)">
+      </div>
+
+      <div class="field">
+        <label>Conferma Nuova Password</label>
+        <input type="password" #confirmPasswordInput (input)="confirmPassword.set(confirmPasswordInput.value)">
+      </div>
+
+      <hr>
+
+      <div class="profile-actions">
+        <button class="actions-btn" (click)="save()">Salva</button>
+        <button class="actions-btn" (click)="cancelEdit()">Annulla</button>
+      </div>
+
+    }
+
+  </div>
+</div>
+
+@if (showDeleteModal()) {
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <span>🗑️</span>
+        </div>
+
+        <div class="modal-heading">
+          <h3>Elimina profilo</h3>
+          <p>Conferma l'eliminazione del tuo profilo</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <p>Attenzione: Operazione irreversibile</p>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" type="button" (click)="showDeleteModal.set(false)">Annulla</button>
+        <button class="btn-save" type="button" (click)="confirmDelete()">Conferma</button>
+      </div>
+    </div>
+  </div>
+
+}

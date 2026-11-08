@@ -1,0 +1,196 @@
+<div class="vault-container">
+    
+  
+  <div class="vault-toolbar">
+    <app-categories></app-categories>
+    <div class="vault-actions">
+      <div class="view-toolbar">
+        <span>Visualizzazione</span>
+        <div class="view-toggle">
+          <button [class.active]="gridView()" (click)="setGridView()" aria-label="Vista griglia"><img src="grid2.png" alt="Griglia" class="icon-btn"></button>
+          <button [class.active]="!gridView()" (click)="setListView()" aria-label="Vista elenco"><img src="list.png" alt="Elenco" class="icon-btn"></button>
+        </div>
+      </div>
+
+      <button class="primary-btn" (click)="openCreateModal()">
+        <span>+</span>
+        Nuovo link
+      </button>
+    </div>
+  </div>
+  
+  <div class="links-container" [class.list-view]="!gridView()">
+
+    @for (link of filteredLinks(); track link.id) {
+
+      <div class="link-card">
+        <span class="link-category">{{ link.category_name }}</span>
+
+        <div class="link-main" (click)="openLink(link)">
+          <img [src]="link.image_url" [alt]="link.title">
+          <h3>{{ link.title }}</h3>
+        </div>
+
+        <div class="link-info">
+          <p class="link-description">{{ link.description }}</p>
+        </div>
+
+        <div class="link-actions">
+          <button class="action-btn" (click)="openEditModal(link)" aria-label="Modifica link" title="Modifica"><img src="edit.png" alt="Modifica" class="icon-btn"></button>
+          <button class="action-btn" (click)="openDeleteModal(link)" aria-label="Elimina link" title="Elimina"><img src="delete.png" alt="Elimina" class="icon-btn"></button>
+        </div>
+      </div>
+
+    }
+
+  </div>
+
+</div>
+
+
+@if (showCreateModal()) {
+
+  <div class="modal-overlay">
+    <div class="modal">
+
+      <div class="modal-header">
+        <div class="modal-icon">
+          <span>🔗</span>
+        </div>
+
+        <div class="modal-heading">
+          <h3>Nuovo Link</h3>
+          <p>Aggiungi un nuovo collegamento alla tua raccolta</p>
+        </div>
+
+      </div>
+
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label>Titolo<span class="required-field" [class.visible]="titleTouched() && !title()">* Campo Obbligatorio</span></label>
+          <input #titleInput type="text" placeholder="Es. Il mio sito preferito" (focus)="titleTouched.set(true)" (input)="title.set(titleInput.value)">
+        </div>
+
+        <div class="form-group">
+          <label>URL<span class="required-field" [class.visible]="urlTouched() && !url()">* Campo Obbligatorio</span></label>
+          <input #urlInput type="url" placeholder="https://example.com" (focus)="urlTouched.set(true)" (input)="url.set(urlInput.value)">
+        </div>
+
+        <div class="form-group">
+          <label>Categoria</label>
+
+          <select #categorySelect (change)="categoryId.set(+categorySelect.value)">
+            @for (category of categoryService.categories(); track category.id) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
+          </select>
+
+        </div>
+
+        <div class="form-group">
+          <label>Descrizione <span>(facoltativa)</span></label>
+          <textarea #descriptionInput placeholder="Aggiungi qualche dettaglio su questo link..." (input)="description.set(descriptionInput.value)"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+
+        <button class="btn-cancel" type="button" (click)="resetTouchedFields(); showCreateModal.set(false)">Annulla</button>
+        <button class="btn-save" type="button" [disabled]="!title().trim() || !url().trim()" (click)="createLink()">Salva link</button>
+
+      </div>
+    </div>
+  </div>
+
+}
+
+
+@if (showEditModal()) {
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+
+        <div class="modal-icon">
+          <span>✏️</span>
+        </div>
+
+        <div class="modal-heading">
+          <h3>Modifica Link</h3>
+          <p>Modifica le informazioni del collegamento selezionato</p>
+        </div>
+
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Titolo<span class="required-field" [class.visible]="titleTouched() && !title().trim()">* Campo Obbligatorio</span></label>
+          <input #titleInput type="text" [value]="title()" placeholder="Es. Il mio sito preferito" (focus)="titleTouched.set(true)" (input)="title.set(titleInput.value)">
+        </div>
+
+        <div class="form-group">
+          <label>URL<span class="required-field" [class.visible]="urlTouched() && !url().trim()">* Campo Obbligatorio</span></label>
+          <input #urlInput type="url" [value]="url()" placeholder="https://example.com" (focus)="urlTouched.set(true)" (input)="url.set(urlInput.value)">
+        </div>
+
+        <div class="form-group">
+          <label>Categoria</label>
+          <select #editCategorySelect [value]="categoryId()" (change)="categoryId.set(+editCategorySelect.value)">
+            @for (category of categoryService.categories(); track category.id) {
+              <option [value]="category.id">
+                {{ category.name }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Descrizione <span>(facoltativa)</span></label>
+          <textarea #descriptionInput placeholder="Aggiungi qualche dettaglio su questo link..." (input)="description.set(descriptionInput.value)">{{ description() }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>URL immagine <span>(facoltativo)</span></label>
+          <input #imageInput type="url" [value]="imageUrl()" placeholder="https://example.com/immagine.jpg" (input)="imageUrl.set(imageInput.value)">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" type="button" (click)="closeEditModal()"> Annulla</button>
+        <button class="btn-save" type="button" [disabled]="!title().trim() || !url().trim()" (click)="updateLink()"> Salva modifiche</button>
+      </div>
+    </div>
+  </div>
+
+}
+
+
+@if (showDeleteModal()) {
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <span>🗑️</span>
+        </div>
+
+        <div class="modal-heading">
+          <h3>Elimina Link {{ linkToDelete()?.title }}</h3>
+          <p>Conferma l'eliminazione del link selezionato</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <p>Attenzione: Operazione irreversibile</p>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" type="button" (click)="closeDeleteModal()">Annulla</button>
+        <button class="btn-save" type="button" (click)="confirmDeleteLink()">Conferma</button>
+      </div>
+    </div>
+  </div>
+
+
+}

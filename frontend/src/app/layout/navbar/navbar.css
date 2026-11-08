@@ -1,0 +1,262 @@
+
+/* =========================
+   NAVBAR GENERALE
+========================= */
+
+.navbar {
+    min-height: 110px;
+    background-color: #E8E4D8;
+    color: #1e1e1e;
+
+    border-bottom: 8px solid #1e1e1e;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px 15%;
+
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+
+/* =========================
+   BRAND
+========================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.brand span {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e1e1e;
+    white-space: nowrap;
+}
+
+.logo {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   AZIONI
+========================= */
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+}
+
+.actions a {
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+/* =========================
+   PROFILO
+========================= */
+
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+
+    max-width: 180px;
+    min-width: 0;
+}
+
+.profileContainer p {
+    margin: 0;
+    font-size: 18px;
+
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* =========================
+   LINK ACCEDI / REGISTRATI
+========================= */
+
+.nav-link {
+    background-color: #1e1e1e;
+    color: #E8E4D8;
+    padding: 9px 18px;
+    border-radius: 10px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+    scale: 1.05;
+    border: 2px solid #1e1e1e;
+    background-color: transparent;
+    box-shadow: 0px 10px 10px rgb(48, 48, 48);
+    color: #1e1e1e;
+}
+
+
+/* =========================
+   PROFILO
+========================= */
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.profile-link:hover {
+    scale: 1.1
+}
+
+.profile {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+.logout-btn {
+    background-color: #1e1e1e;
+    color: #E8E4D8;
+    border: 2px solid #1e1e1e;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: transparent;
+    box-shadow: 0px 10px 10px rgb(48, 48, 48);
+    color: #1e1e1e;
+    scale: 1.05;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (min-width: 576px) and (max-width: 999px) {
+
+    .navbar {
+        min-height: 90px;
+        padding: 8px 10%;
+    }
+
+    .logo {
+        width: 90px;
+        height: auto;
+    }
+
+    .brand span {
+        font-size: 1.5rem;
+    }
+
+    .profileContainer {
+        max-width: 130px;
+    }
+
+    .profileContainer p {
+        font-size: 14px;
+    }
+
+    .profile {
+        width: 50px;
+        height: 50px;
+    }
+
+    .actions {
+        gap: 6px;
+    }
+
+    .actions a {
+        font-size: 1rem;
+    }
+
+    .logout-btn,
+    .nav-link {
+        padding: 7px 12px;
+        border-radius: 8px;
+        border-width: 1px;
+        font-size: 0.8rem;
+    }
+}
+
+
+/* =========================
+   SMARTPHONE
+========================= */
+
+@media (max-width: 575px) {
+
+    .navbar {
+        min-height: 80px;
+        border-bottom-width: 6px;
+        padding: 8px 8%;
+    }
+
+    .brand {
+        gap: 8px;
+    }
+
+    .logo {
+        width: 70px;
+        height: auto;
+    }
+
+    .brand span {
+        font-size: 1.3rem;
+    }
+
+    .actions {
+        gap: 4px;
+    }
+
+    .actions a {
+        font-size: 0.8rem;
+    }
+
+    .profileContainer {
+        max-width: 100px;
+    }
+
+    .profileContainer p {
+        font-size: 12px;
+    }
+
+    .profile {
+        width: 35px;
+        height: 35px;
+    }
+
+    .nav-link,
+    .logout-btn {
+        padding: 5px 10px;
+        border-radius: 8px;
+        border-width: 1px;
+        font-size: 0.8rem;
+    }
+}
