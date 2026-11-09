@@ -23,31 +23,27 @@ Il progetto nasce con finalità formative e di portfolio e pone particolare atte
 
 # Quick Start
 
-## Prerequisiti
-
-Assicurarsi di avere installato:
-
-- Docker Desktop
-
-Verifica installazione:
-
-```bash
-docker --version
-docker compose version
-```
-
----
-
 ## Avvio dell'applicazione
 
-Dalla root del progetto eseguire:
+Prerequisiti:
+- Docker Desktop installato
+- Docker Desktop avviato
 
-```bash
-docker compose up --build -d
+Avvio:
+- Doppio click su start.exe
+- Apertura su browser: http://localhost:4200
+
+```text
+Comandi disponibili sul terminale:
+- stop:  arresta i container
+- clean: arresta i container e cancella il volume PostgreSQL
+- restart: riavvia l'intero stack
+- logs: visualizza i log Docker
+- exit: arresta i container e chiude il launcher
 ```
-
-Il comando:
-
+	
+Automaticamente l'eseguibile:
+- rende disponibile un launcher interattivo per la gestione dello stack (stop, restart, logs, clean, exit).
 - crea le immagini Docker necessarie;
 - avvia i container;
 - inizializza il database PostgreSQL;
@@ -57,39 +53,14 @@ Il comando:
 
 ---
 
-## Verifica stato dei servizi
-
-```bash
-docker ps
-```
-
-Output atteso:
-
-```text
-linkvault-postgres   healthy
-linkvault-backend    healthy
-linkvault-frontend   healthy
-```
-
----
-
 ## Accesso all'applicazione
 
-Frontend:
-
-```text
+Aprire il browser all'indirizzo:
 http://localhost:4200
-```
-
-Backend Health Check:
-
-```text
-http://localhost:3000/health
-```
 
 ---
 
-## Credenziali Demo
+### Credenziali Demo
 
 Username:
 demo
@@ -102,17 +73,13 @@ Le credenziali demo vengono caricate automaticamente durante la prima inizializz
 
 ## Arresto dell'applicazione
 
-```bash
-docker compose down
-```
+Digitare il comando "stop" sul terminale del launcher aperto tramite "start.exe"
 
 ---
 
 ## Rimozione completa dell'ambiente
 
-```bash
-docker compose down -v
-```
+Digitare il comando "clean" sul terminale del launcher aperto tramite "start.exe"
 
 ⚠️ Attenzione: il comando elimina anche il volume PostgreSQL e tutti i dati memorizzati nel database.
 
@@ -294,6 +261,7 @@ Default
 ```
 
 Questo consente all'utente di utilizzare immediatamente l'applicazione senza dover creare manualmente una categoria.
+Inoltre, in caso di eliminazione di una categoria personalizzata, tutti i link ad essa associati vengono automaticamente riassegnati alla categoria Default, così da evitare la perdita accidentale di dati.
 
 ---
 
@@ -318,16 +286,16 @@ Caratteristiche:
 
 ### Favicon automatica
 
-Se non viene specificata alcuna immagine personalizzata, il backend genera automaticamente il percorso alla favicon del sito utilizzando l'URL fornito.
+Durante la creazione di un nuovo link, il backend genera automaticamente il percorso alla favicon del sito, partendo dall'URL fornito.
+Tuttavia, in fase di modifica Link, l'utente può comunque inserire un URL specifico che punti ad una favicon specifica.
 
-Esempio:
-
+Esempio di percorso automatico:
+Url per il link da salvare:
 ```text
 https://angular.dev
 ```
 
-↓
-
+Url della favicon generata automaticamente dal BE:
 ```text
 https://angular.dev/favicon.ico
 ```
@@ -421,5 +389,5 @@ contenente:
 
 # Stato del progetto
 
-🚧 Work in progress
+Versione MVP completata
 
