@@ -58,10 +58,10 @@ CREATE TABLE links (
         REFERENCES users(id)
         ON DELETE CASCADE,
 
-    CONSTRAINT fk_links_category
-        FOREIGN KEY (category_id)
-        REFERENCES categories(id)
-        ON DELETE CASCADE
+	CONSTRAINT fk_links_category
+		FOREIGN KEY (category_id)
+		REFERENCES categories(id)
+
 );
 
 -- =========================
