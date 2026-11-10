@@ -26,8 +26,7 @@ Il progetto nasce con finalità formative e di portfolio e pone particolare atte
 ## Avvio dell'applicazione
 
 Prerequisiti:
-- Docker Desktop installato
-- Docker Desktop avviato
+- Docker Desktop installato e avviato (l'installazione richiede WSL2, se non lo si ha già installato, prima di lanciare l'installer di docker, si consiglia di lanciare da PowerShell il comando: "wsl --install").
 
 Avvio:
 - Doppio click su start.exe
