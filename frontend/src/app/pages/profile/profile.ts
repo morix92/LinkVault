@@ -63,6 +63,7 @@ export class ProfileComponent {
     this.userService.updateProfile( this.username(), this.password() || undefined ).subscribe({
       next: () => {
         
+        this.userService.username.set(this.username());
         this.alertService.showAlert({
           message:'Profilo aggiornato correttamente',
           classAlert:'success'

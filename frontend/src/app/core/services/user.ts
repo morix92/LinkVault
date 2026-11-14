@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -5,6 +6,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserService {
+
+  username = signal('');
 
   constructor(private http: HttpClient) {}
 

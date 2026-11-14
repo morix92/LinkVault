@@ -17,21 +17,21 @@ export class NavbarComponent {
   private userService = inject(UserService);
 
   isAuthenticated = this.authService.isAuthenticated;
-  username = signal('');
+  username = this.userService.username;
 
   constructor() {
 
     effect((onCleanup) => {
 
       if (!this.authService.isAuthenticated()) {
-        this.username.set('');
+        this.userService.username.set('');
         return;
       }
 
       const subscription = this.userService.getProfile().subscribe({
 
         next: (user) => {
-          this.username.set(user.username);
+          this.userService.username.set(user.username);
         }
 
       });
@@ -44,7 +44,7 @@ export class NavbarComponent {
 
   logout(): void {
     this.authService.logout();
-    this.username.set('');
+    this.userService.username.set('');
     this.router.navigate(['/login']);
   }
 
